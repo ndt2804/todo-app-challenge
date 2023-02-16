@@ -31,8 +31,6 @@ function renderTask(tasks = []) {
         </li>`
     });
     listTask += '</ul>'
-    console.log(listTask);
-
     document.querySelector('.task-item').innerHTML = listTask;
 
 }
@@ -42,7 +40,11 @@ function getTaskFromLocalStorage() {
 
 function deleteTask(id) {
     if(confirm('Bạn có muốn xóa Task không?')) {
-        
+        let tasks = getTaskFromLocalStorage() ;
+        console.log(tasks);
+        tasks.splice(id,1)
+        localStorage.setItem('tasks', JSON.stringify(tasks))
+        renderTask(getTaskFromLocalStorage());
     }
     
 
