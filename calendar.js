@@ -67,7 +67,7 @@ let tasks = getTaskFromLocalStorage()
 renderTask(tasks);
 btnAddEvents.addEventListener('click', function() {
     if(!eventName.value) {
-        alert('Nhập công việc')
+        alert('Create Event Add Calendar')
         return false
     }
     let tasks = getTaskFromLocalStorage()
