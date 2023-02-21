@@ -1,9 +1,11 @@
-const calendar = document.querySelector(".calendar"),
-  date = document.querySelector(".date"),
-  daysContainer = document.querySelector(".days");
+const calendar = document.querySelector(".calendar");
+const date = document.querySelector(".date");
+const daysContainer = document.querySelector(".days");
+const btnAddEvents = document.querySelector(".add-event-btn");
+const eventName = document.querySelector(".event-input");
+
 
 let today = new Date();
-let activeDay;
 let month = today.getMonth();
 let year = today.getFullYear();
 
@@ -59,3 +61,43 @@ function initCalendar() {
 }
 
 initCalendar();
+
+
+let tasks = getTaskFromLocalStorage()
+renderTask(tasks);
+btnAddEvents.addEventListener('click', function() {
+    if(!eventName.value) {
+        alert('Nhập công việc')
+        return false
+    }
+    let tasks = getTaskFromLocalStorage()
+    console.log(tasks);
+    tasks.push({nameTask: eventName.value})
+    eventName.value = '';
+
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+    renderTask(tasks);
+
+})
+
+function renderTask(tasks = []) {
+    let listTask = '';
+    tasks.forEach((task) => {
+        listTask += ` 
+        <div class="event">
+          <div class="title">
+            <i class="fas fa-circle"></i>
+            <h3 class="event-title">${task.nameTask}</h3>
+          </div>
+        </div>`;
+    });
+    if (listTask === "") {
+      listTask = `<div class="no-event">
+              <h3>No Events</h3>
+          </div>`;
+    }
+    document.querySelector('.events').innerHTML = listTask;
+}
+function getTaskFromLocalStorage() {
+    return localStorage.getItem('tasks') ?  JSON.parse(localStorage.getItem('tasks')) : []
+}
