@@ -2,7 +2,7 @@ const calendar = document.querySelector(".calendar");
 const date = document.querySelector(".date");
 const daysContainer = document.querySelector(".days");
 const btnAddEvents = document.querySelector(".add-event-btn");
-const eventName = document.querySelector(".event-input");
+const eventInput = document.querySelector("input");
 
 
 let today = new Date();
@@ -64,39 +64,58 @@ initCalendar();
 
 
 let tasks = getTaskFromLocalStorage()
+console.log(tasks);
 renderTask(tasks);
 btnAddEvents.addEventListener('click', function() {
-    if(!eventName.value) {
+    if(!eventInput.value) {
         alert('Create Event Add Calendar')
         return false
     }
     let tasks = getTaskFromLocalStorage()
     console.log(tasks);
-    tasks.push({nameTask: eventName.value})
-    eventName.value = '';
-
+    tasks.push({name: eventInput.value})
+    eventInput.value = '';
+   
     localStorage.setItem('tasks', JSON.stringify(tasks))
     renderTask(tasks);
 
-})
-
+});
 function renderTask(tasks = []) {
     let listTask = '';
-    tasks.forEach((task) => {
+    tasks.forEach((task,index) => {
         listTask += ` 
         <div class="event">
           <div class="title">
-            <i class="fas fa-circle"></i>
-            <h3 class="event-title">${task.nameTask}</h3>
+            <i class="fa fa-circle"></i>
+            <h3 class="event-title">${task.name}</h3>   
+            <a href="" onclick="doneTask(${index})"> <i class=" fa fa-check-circle-o"></i> </a>
+            <a href="" onclick="deleteTask(${index})"> <i class="fa fa-trash""></i> </a>
+            
           </div>
-        </div>`;
+          
+        </div>`
     });
     if (listTask === "") {
-      listTask = `<div class="no-event">
-              <h3>No Events</h3>
-          </div>`;
+      listTask = `
+        <div class="no-event">
+          <h3>No Events</h3>
+        </div>`;
     }
     document.querySelector('.events').innerHTML = listTask;
+}
+function doneTask(id) {
+  alert(id);
+}
+function deleteTask(id) {
+  console.log(id);
+  if(confirm('Bạn có muốn xóa không ') ) {
+    let tasks = getTaskFromLocalStorage();
+    tasks.splice(id,1);
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    renderTask(getTaskFromLocalStorage());
+  }
+    
+
 }
 function getTaskFromLocalStorage() {
     return localStorage.getItem('tasks') ?  JSON.parse(localStorage.getItem('tasks')) : []

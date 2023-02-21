@@ -325,30 +325,39 @@ body {
 .events .event:nth-child(even) {
   background: transparent;
 }
-.events .event:hover {
+ .events .event:hover {
   background: linear-gradient(90deg, var(--primary-clr), transparent);
-}
+} 
 .events .event .title {
   display: flex;
   align-items: center;
-  pointer-events: none;
+  pointer-events: auto;
 }
 .events .event .title .event-title {
   font-size: 1rem;
   font-weight: 400;
   margin-left: 20px;
+  margin-right: auto;
 }
-.events .event i {
-  color: var(--primary-clr);
-  font-size: 0.5rem;
-}
+
+
+
 .events .event:hover i {
   color: #fff;
 }
-
+.events .event .title i {
+  color: var(--primary-clr);
+  font-size: 1rem;
+}
+.events .event .title a {
+  text-decoration: none;
+  display: block;
+  margin-right: 10px;
+  color: white;
+}
 /* add tick in event after */
 .events .event::after {
-  content: "✓";
+ 
   position: absolute;
   top: 50%;
   right: 0;
@@ -363,6 +372,24 @@ body {
 }
 .events .event:hover::after {
   display: flex;
+}
+
+.events .event .title i {
+  pointer-events: none;
+}
+.events .event .title {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.events .no-event {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #878895;
 }
 .add-event-footer {
   display: flex;
