@@ -319,12 +319,9 @@ body {
   padding: 0 20px;
   padding-left: 50px;
   color: #fff;
-  background: linear-gradient(90deg, #3f4458, transparent);
   cursor: pointer;
 }
-.events .event:nth-child(even) {
-  background: transparent;
-}
+
  .events .event:hover {
   background: linear-gradient(90deg, var(--primary-clr), transparent);
 } 
@@ -338,6 +335,16 @@ body {
   font-weight: 400;
   margin-left: 20px;
   margin-right: auto;
+}
+
+.events .event .fa-check-circle-o.checked{
+  background-color: green;
+}
+.event  .title i .fa-check-circle-o.clicked {
+  background-color: red;
+}
+.event.done {
+  background-color: #ccc;
 }
 
 

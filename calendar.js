@@ -88,7 +88,7 @@ function renderTask(tasks = []) {
           <div class="title">
             <i class="fa fa-circle"></i>
             <h3 class="event-title">${task.name}</h3>   
-            <a href="" onclick="doneTask(${index})"> <i class=" fa fa-check-circle-o"></i> </a>
+            <a href="" onclick="doneTask(event)"> <i class=" fa fa-check-circle-o"></i> </a>
             <a href="" onclick="deleteTask(${index})"> <i class="fa fa-trash""></i> </a>
             
           </div>
@@ -103,8 +103,14 @@ function renderTask(tasks = []) {
     }
     document.querySelector('.events').innerHTML = listTask;
 }
-function doneTask(id) {
-  alert(id);
+function doneTask(event) {
+  event.preventDefault();
+  var parent = event.target.closest(".event");
+  parent.classList.toggle("done");
+  tasks[event].done = true;
+  localStorage.setItem("tasksDone", JSON.stringify(tasks));
+  
+
 }
 function deleteTask(id) {
   console.log(id);
